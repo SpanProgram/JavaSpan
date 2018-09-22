@@ -2,6 +2,7 @@ package pl.com.engineering.software;
 
 import com.jsevy.jdxf.DXFDocument;
 import com.jsevy.jdxf.DXFGraphics;
+import pl.com.engineering.software.domain.ObstaclesCoordinations;
 import pl.com.engineering.software.domain.Span;
 
 import java.awt.*;
@@ -41,34 +42,35 @@ public class Main {
 
         for (int i = 0; i < spansToDraw.size(); i++) {
 
+            Double theLowestPylonPoint = spansToDraw.get(i).getFirstPylonCoordination() - spansToDraw.get(i).getFirstPylonDepth();
+            Double totalPylonHeight = spansToDraw.get(i).getFirstPylonHeight() + spansToDraw.get(i).getFirstPylonDepth();
             if (i == 0) {
                 //first pylon
                 graphics.drawLine(
-                        currentXcoordination,spansToDraw.get(i).getFirstPylonDepth(),
-                        currentXcoordination,-spansToDraw.get(i).getFirstPylonHeight());
+                        currentXcoordination,-theLowestPylonPoint,
+                        currentXcoordination,-totalPylonHeight);
             }
 
             //second pylon
+            theLowestPylonPoint = spansToDraw.get(i).getSecondPylonCoordination() - spansToDraw.get(i).getSecondPylonDepth();
+            totalPylonHeight = spansToDraw.get(i).getSecondPylonHeight() + spansToDraw.get(i).getSecondPylonDepth();
             graphics.drawLine(
-                    currentXcoordination + spansToDraw.get(i).getNextPylonDistance(),spansToDraw.get(i).getSecondPylonDepth(),
-                    currentXcoordination + spansToDraw.get(i).getNextPylonDistance(),-spansToDraw.get(i).getSecondPylonHeight());
+                    currentXcoordination + spansToDraw.get(i).getNextPylonDistance(),-theLowestPylonPoint,
+                    currentXcoordination + spansToDraw.get(i).getNextPylonDistance(),-totalPylonHeight);
 
-            //ground
-            graphics.drawLine(
-                    currentXcoordination, 0,
-                    currentXcoordination + spansToDraw.get(i).getNextPylonDistance(), 0);
+            drawGround(graphics, currentXcoordination, spansToDraw.get(i));
 
             //arc
-            double[] x = new double[3];
-            x[0] = currentXcoordination;
-            x[1] = currentXcoordination + spansToDraw.get(i).getX1();
-            x[2] = currentXcoordination + spansToDraw.get(i).getNextPylonDistance();
-
-            double[] y = new double[3];
-            y[0] = -spansToDraw.get(i).getFirstPylonHeight();
-            y[1] = -(spansToDraw.get(i).getFirstPylonHeight() - 100);
-            y[2] = -spansToDraw.get(i).getSecondPylonHeight();
-            graphics.drawPolyline(x,y,3);
+//            double[] x = new double[3];
+//            x[0] = currentXcoordination;
+//            x[1] = currentXcoordination + spansToDraw.get(i).getX1();
+//            x[2] = currentXcoordination + spansToDraw.get(i).getNextPylonDistance();
+//
+//            double[] y = new double[3];
+//            y[0] = -spansToDraw.get(i).getFirstPylonHeight();
+//            y[1] = -(spansToDraw.get(i).getFirstPylonHeight() - 100);
+//            y[2] = -spansToDraw.get(i).getSecondPylonHeight();
+//            graphics.drawPolyline(x,y,3);
 
             currentXcoordination += spansToDraw.get(i).getNextPylonDistance();
         }
@@ -95,5 +97,40 @@ public class Main {
 //
 //        graphics.shear(0.1f, 0.2f);
 //        graphics.drawRect(100, 100, 200, 200);
+    }
+
+    private static void drawGround(DXFGraphics graphics, Double currentXcoordination, Span span) {
+//        graphics.drawLine(
+//                currentXcoordination, -span.getFirstPylonCoordination(),
+//                currentXcoordination + span.getNextPylonDistance(), -span.getSecondPylonCoordination());
+        Double previousXCoordination = null;
+        Double previousYCoordination = null;
+
+        for (int j = 0; j < span.getObstaclesCoordinations().size();j++) {
+
+            ObstaclesCoordinations coordinations = span.getObstaclesCoordinations().get(j);
+
+            if (j == 0) {
+                graphics.drawLine(
+                        currentXcoordination, -span.getFirstPylonCoordination(),
+                        currentXcoordination + coordinations.getX(), -coordinations.getY());
+                previousXCoordination = coordinations.getX();
+                previousYCoordination = coordinations.getY();
+            } else if (j < span.getObstaclesCoordinations().size() - 1){
+                graphics.drawLine(
+                        currentXcoordination + previousXCoordination, -previousYCoordination,
+                        currentXcoordination + coordinations.getX(), -coordinations.getY());
+                previousXCoordination = coordinations.getX();
+                previousYCoordination = coordinations.getY();
+            } else {
+                graphics.drawLine(
+                        currentXcoordination + previousXCoordination, -previousYCoordination,
+                        currentXcoordination + coordinations.getX(), -coordinations.getY());
+
+                graphics.drawLine(
+                        currentXcoordination + coordinations.getX(), -coordinations.getY(),
+                        currentXcoordination + span.getNextPylonDistance(), -span.getSecondPylonCoordination());
+            }
+        }
     }
 }

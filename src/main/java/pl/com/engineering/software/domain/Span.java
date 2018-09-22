@@ -1,27 +1,42 @@
 package pl.com.engineering.software.domain;
 
+import java.util.List;
+import java.util.Map;
+
 public class Span {
 
     private Double firstPylonHeight;
     private Double firstPylonDepth;
-
     private Double secondPylonHeight;
     private Double secondPylonDepth;
-
     private Double nextPylonDistance;
-
+    private Double firstPylonCoordination;
+    private Double secondPylonCoordination;
     private Double x1;
+    private List<ObstaclesCoordinations> obstaclesCoordinations;
 
-    public Span() {
+    public List<ObstaclesCoordinations> getObstaclesCoordinations() {
+        return obstaclesCoordinations;
     }
 
-    public Span(Double firstPylonHeight, Double firstPylonDepth, Double secondPylonHeight, Double secondPylonDepth, Double nextPylonDistance, Double x1) {
-        this.firstPylonHeight = firstPylonHeight;
-        this.firstPylonDepth = firstPylonDepth;
-        this.secondPylonHeight = secondPylonHeight;
-        this.secondPylonDepth = secondPylonDepth;
-        this.nextPylonDistance = nextPylonDistance;
-        this.x1 = x1;
+    public void setObstaclesCoordinations(List<ObstaclesCoordinations> obstaclesCoordinations) {
+        this.obstaclesCoordinations = obstaclesCoordinations;
+    }
+
+    public Double getFirstPylonCoordination() {
+        return firstPylonCoordination;
+    }
+
+    public void setFirstPylonCoordination(Double firstPylonCoordination) {
+        this.firstPylonCoordination = firstPylonCoordination;
+    }
+
+    public Double getSecondPylonCoordination() {
+        return secondPylonCoordination;
+    }
+
+    public void setSecondPylonCoordination(Double secondPylonCoordination) {
+        this.secondPylonCoordination = secondPylonCoordination;
     }
 
     public Double getFirstPylonHeight() {
