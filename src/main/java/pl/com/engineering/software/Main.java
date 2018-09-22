@@ -10,13 +10,13 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        DXFDocument dxfDocument = new
-                DXFDocument("First dxf output");
-        DXFGraphics dxfGraphics =
-                dxfDocument.getGraphics();
+        DXFDocument dxfDocument = new DXFDocument("First dxf output");
 
-        paint(dxfGraphics);
+        prepareDrawing(dxfDocument);
+        generateDxfFile(dxfDocument);
+    }
 
+    private static void generateDxfFile(DXFDocument dxfDocument) {
         String stringOutput = dxfDocument.toDXFString();
         FileWriter fileWriter;
         try {
@@ -29,7 +29,9 @@ public class Main {
         }
     }
 
-    public static void paint(DXFGraphics graphics) {
+    public static void prepareDrawing(DXFDocument dxfDocument) {
+        DXFGraphics graphics = dxfDocument.getGraphics();
+
         graphics.setColor(Color.RED);
         graphics.setStroke(new BasicStroke(3));
 
