@@ -43,18 +43,7 @@ public class Main {
         for (int i = 0; i < spansToDraw.size(); i++) {
             drawSpanPylons(graphics, currentXcoordination, spansToDraw.get(i), i);
             drawSpanGround(graphics, currentXcoordination, spansToDraw.get(i));
-
-            //arc
-//            double[] x = new double[3];
-//            x[0] = currentXcoordination;
-//            x[1] = currentXcoordination + spansToDraw.get(i).getX1();
-//            x[2] = currentXcoordination + spansToDraw.get(i).getNextPylonDistance();
-//
-//            double[] y = new double[3];
-//            y[0] = -spansToDraw.get(i).getFirstPylonHeight();
-//            y[1] = -(spansToDraw.get(i).getFirstPylonHeight() - 100);
-//            y[2] = -spansToDraw.get(i).getSecondPylonHeight();
-//            graphics.drawPolyline(x,y,3);
+            drawSpanWire(graphics, currentXcoordination, spansToDraw.get(i));
 
             currentXcoordination += spansToDraw.get(i).getNextPylonDistance();
         }
@@ -83,21 +72,40 @@ public class Main {
 //        graphics.drawRect(100, 100, 200, 200);
     }
 
+    private static void drawSpanWire(DXFGraphics graphics, Double currentXcoordination, Span span) {
+            double[] x = new double[3];
+            x[0] = currentXcoordination;
+            x[1] = currentXcoordination + span.getX1();
+            x[2] = currentXcoordination + span.getNextPylonDistance();
+
+            double[] y = new double[3];
+            y[0] = -(span.getFirstPylonCoordination() + span.getFirstPylonHeight());
+            y[1] = -(span.getFirstPylonHeight() - 100);
+            y[2] = -(span.getSecondPylonCoordination() + span.getSecondPylonHeight());
+            graphics.drawPolyline(x,y,3);
+    }
+
     private static void drawSpanPylons(DXFGraphics graphics, Double currentXcoordination, Span span, int i) {
         Double theLowestPylonPoint = span.getFirstPylonCoordination() - span.getFirstPylonDepth();
-        Double totalPylonHeight = span.getFirstPylonHeight() + span.getFirstPylonDepth();
+        Double totalPylonHeight = span.getFirstPylonHeight();
 
         if (i == 0) {
             graphics.drawLine(
                     currentXcoordination,-theLowestPylonPoint,
-                    currentXcoordination,-totalPylonHeight);
+                    currentXcoordination,-(totalPylonHeight + span.getFirstPylonCoordination()));
         }
+        graphics.drawLine(0,-span.getFirstPylonCoordination(),250, -span.getFirstPylonCoordination());
+        graphics.drawLine(0,-theLowestPylonPoint,250, -theLowestPylonPoint);
+
 
         theLowestPylonPoint = span.getSecondPylonCoordination() - span.getSecondPylonDepth();
-        totalPylonHeight = span.getSecondPylonHeight() + span.getSecondPylonDepth();
+        totalPylonHeight = span.getSecondPylonHeight();
         graphics.drawLine(
                 currentXcoordination + span.getNextPylonDistance(),-theLowestPylonPoint,
-                currentXcoordination + span.getNextPylonDistance(),-totalPylonHeight);
+                currentXcoordination + span.getNextPylonDistance(),-(totalPylonHeight + span.getSecondPylonCoordination()));
+
+        graphics.drawLine(250,-span.getSecondPylonCoordination(),1000, -span.getSecondPylonCoordination());
+        graphics.drawLine(250,-theLowestPylonPoint,1000, -theLowestPylonPoint);
     }
 
     private static void drawSpanGround(DXFGraphics graphics, Double currentXcoordination, Span span) {

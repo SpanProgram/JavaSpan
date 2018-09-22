@@ -4,9 +4,7 @@ import pl.com.engineering.software.domain.ObstaclesCoordinations;
 import pl.com.engineering.software.domain.Span;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SpanDataProvider {
 
@@ -15,12 +13,14 @@ public class SpanDataProvider {
         Span firstSpan = new Span();
         firstSpan.setFirstPylonHeight(320d);
         firstSpan.setFirstPylonDepth(110d);
-        firstSpan.setSecondPylonHeight(430d);
+        firstSpan.setFirstPylonCoordination(25d);
+
+        firstSpan.setSecondPylonHeight(450d);
         firstSpan.setSecondPylonDepth(170d);
+        firstSpan.setSecondPylonCoordination(45d);
         firstSpan.setNextPylonDistance(530d);
         firstSpan.setX1(210d);
-        firstSpan.setFirstPylonCoordination(0d);
-        firstSpan.setSecondPylonCoordination(45d);
+
         List<ObstaclesCoordinations> firstObstaclesCoordination = new ArrayList<ObstaclesCoordinations>();
         firstObstaclesCoordination.add(new ObstaclesCoordinations(120d, -23d));
         firstObstaclesCoordination.add(new ObstaclesCoordinations(324d, 33d));
@@ -28,7 +28,7 @@ public class SpanDataProvider {
         firstSpan.setObstaclesCoordinations(firstObstaclesCoordination);
 
         Span secondSpan = new Span();
-        secondSpan.setFirstPylonHeight(430d);
+        secondSpan.setFirstPylonHeight(450d);
         secondSpan.setFirstPylonDepth(170d);
         secondSpan.setSecondPylonHeight(610d);
         secondSpan.setSecondPylonDepth(190d);
