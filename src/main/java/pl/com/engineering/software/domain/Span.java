@@ -12,6 +12,9 @@ public class Span {
 
     private Double x1;
 
+    public Span() {
+    }
+
     public Span(Double firstPylonHeight, Double firstPylonDepth, Double secondPylonHeight, Double secondPylonDepth, Double nextPylonDistance, Double x1) {
         this.firstPylonHeight = firstPylonHeight;
         this.firstPylonDepth = firstPylonDepth;
