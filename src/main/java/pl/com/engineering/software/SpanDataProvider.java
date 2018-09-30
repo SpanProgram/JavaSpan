@@ -1,6 +1,6 @@
 package pl.com.engineering.software;
 
-import pl.com.engineering.software.domain.ObstaclesCoordinations;
+import pl.com.engineering.software.domain.PointCoordinations;
 import pl.com.engineering.software.domain.Span;
 
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ public class SpanDataProvider {
         firstSpan.setNextPylonDistance(530d);
         firstSpan.setX1(210d);
 
-        List<ObstaclesCoordinations> firstObstaclesCoordination = new ArrayList<ObstaclesCoordinations>();
-        firstObstaclesCoordination.add(new ObstaclesCoordinations(120d, -23d));
-        firstObstaclesCoordination.add(new ObstaclesCoordinations(324d, 33d));
-        firstObstaclesCoordination.add(new ObstaclesCoordinations(500d, 15d));
+        List<PointCoordinations> firstObstaclesCoordination = new ArrayList<PointCoordinations>();
+        firstObstaclesCoordination.add(new PointCoordinations(120d, -23d));
+        firstObstaclesCoordination.add(new PointCoordinations(324d, 33d));
+        firstObstaclesCoordination.add(new PointCoordinations(500d, 15d));
         firstSpan.setObstaclesCoordinations(firstObstaclesCoordination);
 
         Span secondSpan = new Span();
@@ -36,10 +36,10 @@ public class SpanDataProvider {
         secondSpan.setX1(210d);
         secondSpan.setFirstPylonCoordination(45d);
         secondSpan.setSecondPylonCoordination(20d);
-        List<ObstaclesCoordinations> secondObstaclesCoordination = new ArrayList<ObstaclesCoordinations>();
-        secondObstaclesCoordination.add(new ObstaclesCoordinations(120d, 0d));
-        secondObstaclesCoordination.add(new ObstaclesCoordinations(385d, 21d));
-        secondObstaclesCoordination.add(new ObstaclesCoordinations(611d, 0d));
+        List<PointCoordinations> secondObstaclesCoordination = new ArrayList<PointCoordinations>();
+        secondObstaclesCoordination.add(new PointCoordinations(120d, 0d));
+        secondObstaclesCoordination.add(new PointCoordinations(385d, 21d));
+        secondObstaclesCoordination.add(new PointCoordinations(611d, 0d));
         secondSpan.setObstaclesCoordinations(secondObstaclesCoordination);
 
         List<Span> list = new ArrayList<Span>();

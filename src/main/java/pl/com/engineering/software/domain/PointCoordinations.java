@@ -1,13 +1,16 @@
 package pl.com.engineering.software.domain;
 
-public class ObstaclesCoordinations {
+public class PointCoordinations {
 
     private Double X;
     private Double Y;
 
-    public ObstaclesCoordinations(Double x, Double y) {
+    public PointCoordinations(Double x, Double y) {
         X = x;
         Y = y;
+    }
+
+    public PointCoordinations() {
     }
 
     public Double getX() {
@@ -24,5 +27,13 @@ public class ObstaclesCoordinations {
 
     public void setY(Double y) {
         Y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "PointCoordinations{" +
+                "X=" + X +
+                ", Y=" + Y +
+                '}';
     }
 }
