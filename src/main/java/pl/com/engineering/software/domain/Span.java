@@ -1,7 +1,6 @@
 package pl.com.engineering.software.domain;
 
 import java.util.List;
-import java.util.Map;
 
 public class Span {
 
@@ -13,13 +12,13 @@ public class Span {
     private Double firstPylonCoordination;
     private Double secondPylonCoordination;
     private Double x1;
-    private List<ObstaclesCoordinations> obstaclesCoordinations;
+    private List<PointCoordinations> obstaclesCoordinations;
 
-    public List<ObstaclesCoordinations> getObstaclesCoordinations() {
+    public List<PointCoordinations> getObstaclesCoordinations() {
         return obstaclesCoordinations;
     }
 
-    public void setObstaclesCoordinations(List<ObstaclesCoordinations> obstaclesCoordinations) {
+    public void setObstaclesCoordinations(List<PointCoordinations> obstaclesCoordinations) {
         this.obstaclesCoordinations = obstaclesCoordinations;
     }
 
